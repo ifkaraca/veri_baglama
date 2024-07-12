@@ -1,0 +1,6 @@
+@Kullanici_HostAddress = http://localhost:5177
+
+GET {{Kullanici_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
