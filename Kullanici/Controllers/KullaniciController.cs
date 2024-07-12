@@ -158,7 +158,7 @@ namespace Kullanici.Controllers
                 ModelState.AddModelError("Kullanıcı", "Üzgünüz ama hata oldu");
                 return BadRequest(ModelState);
             }
-            return Ok();//kullaniciDto
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -184,43 +184,6 @@ namespace Kullanici.Controllers
                 return BadRequest(ModelState);
             }
             return Ok();
-        }
-
-        [HttpGet("telefon/{id}")]
-        public IActionResult GetTelefon(int id)
-        {
-           TlfProc kullanici = new TlfProc();
-            try
-            {
-                using (var conncetion = new SqlConnection(conncetionString))
-                {
-                    conncetion.Open();
-                    string sql = "exec telefongetir @id";
-                    using (var command = new SqlCommand(sql, conncetion))
-                    {
-                        command.Parameters.AddWithValue("@id", id);
-
-                        using (var reader = command.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                kullanici.ad = reader.GetString(0);
-                                kullanici.telefon = reader.GetString(1);
-                            }
-                            else
-                            {
-                                return NotFound();
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("Kullanıcı", "Üzgünüz ama hata oldu");
-                return BadRequest(ModelState);
-            }
-            return Ok(kullanici);
         }
     }
 }
